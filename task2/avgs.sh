@@ -1,0 +1,46 @@
+#!/bin/bash
+COUNT=0
+USEDDISKSUM=0
+FREEDISKSUM=0
+USEDMEMSUM=0
+FREEMEMSUM=0
+CPUSUM=0
+for FILE in /tmp/task2/status/*.txt
+do
+
+FILEUSEDDISK=$(awk 'FNR==2{print $0}' $FILE)
+let USEDDISKSUM=$((USEDDISKSUM+FILEUSEDDISK))
+
+FILEFREEDISK=$(awk 'FNR==4{print $0}' $FILE)
+let FREEDISKSUM=$((FREEDISKSUM+FILEFREEDISK))
+
+FILEUSEDMEM=$(awk 'FNR==6{print $0}' $FILE)
+let USEDMEMSUM=$((USEDMEMSUM+FILEUSEDMEM))
+
+FILEFREEMEM=$(awk 'FNR==8{print $0}' $FILE)
+let FREEMEMSUM=$((FREEMEMSUM+FILEFREEMEM))
+
+FILECPU=$(awk 'FNR==10{print $0}' $FILE)
+CPUSUM=`echo $FILECPU+$CPUSUM | bc`
+
+let COUNT++
+
+done
+echo Used Disk avg:
+USEDDISKAVG=$((USEDDISKSUM/COUNT))
+echo $USEDDISKAVG
+
+echo Free disk avg:
+FREEDISKAVG=$((FREEDISKSUM/COUNT))
+echo $FREEDISKAVG
+
+echo Used Memory avg:
+USEDMEMAVG=$((USEDMEMSUM/COUNT))
+echo $USEDMEMAVG
+
+echo Free Memory avg:
+FREEMEMAVG=$((FREEMEMSUM/COUNT))
+echo $FREEMEMAVG
+
+echo CPU utilization:
+awk "BEGIN {print $CPUSUM/$COUNT}"

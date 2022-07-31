@@ -1,0 +1,10 @@
+Used Disk avg:
+2141827
+Free disk avg:
+1048020820
+Used Memory avg:
+183002
+Free Memory avg:
+651964
+CPU utilization:
+0.17

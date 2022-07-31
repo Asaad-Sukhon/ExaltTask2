@@ -1,0 +1,10 @@
+Used disk:
+2162260
+Availsble disk:
+1048000388
+Used memory:
+189736
+Free memory:
+517772
+Cpu utilization:
+.21
